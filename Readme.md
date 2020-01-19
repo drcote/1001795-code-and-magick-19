@@ -1,7 +1,7 @@
 # Учебный проект «Код и Магия» [![Build status][travis-image]][travis-url]
 
 * Студент: [dr_cote](https://up.htmlacademy.ru/javascript/19/user/1001795).
-* Наставник: `Неизвестно`.
+* Наставник: [Артем Зрилов](https://htmlacademy.ru/profile/id1045563).
 
 ---
 

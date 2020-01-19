@@ -180,6 +180,8 @@
   </template>
 
   <script>
+    'use strict';
+
     /* Размер фаербола в пикселях */
     var fireballSize = 22;
 
@@ -195,8 +197,8 @@
     }
 
     /* Функция, которая возвращает пропорциональную высоту мага */
-    var getWizardHeight = function () {
-      return 1.37 * wizardWidth;
+    var getWizardHeight = function (wizardWidth) {
+      return 1.337 * wizardWidth;
     }
 
     /* Функция устанавливающая положение мага по горизонтали */
@@ -207,7 +209,7 @@
 
     /* Функция устанавливающая положение мага по вертикали */
     function getWizardY(height) {
-      return height - 300;
+      return height / 3;
     }
 
   </script>
