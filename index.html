@@ -203,13 +203,13 @@
 
     /* Функция устанавливающая положение мага по горизонтали */
     function getWizardX(width) {
-      return width / 2;
+      return (width - wizardWidth) / 2;
     }
 
 
     /* Функция устанавливающая положение мага по вертикали */
     function getWizardY(height) {
-      return height / 3;
+      return height / 3 - getWizardHeight();
     }
 
   </script>
