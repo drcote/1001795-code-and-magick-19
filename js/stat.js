@@ -39,6 +39,28 @@ var getMaxElement = function (arr) {
   return maxElement;
 };
 
+/* Функция вычисляет случайный процент */
+var calcSaturation = function () {
+  return Math.random() * 100 + '%';
+};
+
+/* Функция выводящая колонку */
+var renderChart = function (ctx, time, maxTime, distBetween, player, color) {
+  /* Текущая высота столбца */
+  var currentHeight = (CHART_HEIGHT * Math.round(time)) / maxTime;
+  /* Начало координат гисторграммы X */
+  var startX = FORM_STATISTICS_X + distBetween;
+  /* Начало координат гисторграммы Y  */
+  var startY = FORM_STATISTICS_Y + FORM_STATISTICS_HEIGHT - currentHeight - GAP - TEXT_WIDTH - GAP - GAP;
+
+  ctx.fillStyle = color;
+  ctx.fillRect(startX, startY, CHART_WIDTH, currentHeight);
+
+  ctx.fillStyle = '#000';
+  ctx.fillText(player, startX, startY + currentHeight + GAP + TEXT_WIDTH);
+};
+
+
 window.renderStatistics = function (ctx, players, times) {
   renderFormStatistics(ctx, FORM_STATISTICS_X + 10, FORM_STATISTICS_Y + 10, 'rgba(0, 0, 0, 0.7)');
   renderFormStatistics(ctx, 100, 10, '#fff');
@@ -52,12 +74,6 @@ window.renderStatistics = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
   /* Дистанция между столбцами */
   var distBetween = CHART_DIST_BETWEEN;
-  /* Текущая высота столбца */
-  var currentHeight = 0;
-  /* Начало координат гисторграммы X */
-  var startX = 0;
-  /* Начало координат гисторграммы Y  */
-  var startY = 0;
 
   for (var i = 0; i < players.length; i++) {
 
@@ -65,20 +81,8 @@ window.renderStatistics = function (ctx, players, times) {
       distBetween += CHART_DIST_BETWEEN + CHART_WIDTH;
     }
 
-    if (players[i] === 'Вы') {
-      ctx.fillStyle = USER_COLOR;
-    } else {
-      var saturation = Math.random() * 100 + '%';
-      ctx.fillStyle = 'hsl(240,' + saturation + ',50%)';
-    }
+    var color = players[i] === 'Вы' ? USER_COLOR : 'hsl(240,' + calcSaturation() + ',50%)';
 
-    currentHeight = (CHART_HEIGHT * Math.round(times[i])) / maxTime;
-    startX = FORM_STATISTICS_X + distBetween;
-    startY = FORM_STATISTICS_Y + FORM_STATISTICS_HEIGHT - currentHeight - GAP - TEXT_WIDTH - GAP - GAP;
-
-    ctx.fillRect(startX, startY, CHART_WIDTH, currentHeight);
-
-    ctx.fillStyle = '#000';
-    ctx.fillText(players[i], startX, startY + currentHeight + GAP + TEXT_WIDTH);
+    renderChart(ctx, times[i], maxTime, distBetween, players[i], color);
   }
 };
