@@ -46,18 +46,26 @@ var calcSaturation = function () {
 
 /* Функция выводящая колонку */
 var renderChart = function (ctx, time, maxTime, distBetween, player, color) {
+  /* Округление времени */
+  var roundingTime = Math.round(time);
+
   /* Текущая высота столбца */
-  var currentHeight = (CHART_HEIGHT * Math.round(time)) / maxTime;
+  var currentHeight = (CHART_HEIGHT * roundingTime) / maxTime;
   /* Начало координат гисторграммы X */
   var startX = FORM_STATISTICS_X + distBetween;
   /* Начало координат гисторграммы Y  */
   var startY = FORM_STATISTICS_Y + FORM_STATISTICS_HEIGHT - currentHeight - GAP - TEXT_WIDTH - GAP - GAP;
 
+  /* Отрисовка столбца */
   ctx.fillStyle = color;
   ctx.fillRect(startX, startY, CHART_WIDTH, currentHeight);
 
+  /* Отрисовка подписи игрока */
   ctx.fillStyle = '#000';
   ctx.fillText(player, startX, startY + currentHeight + GAP + TEXT_WIDTH);
+
+  /* Отрисовка времени игрока */
+  ctx.fillText(roundingTime, startX, startY - GAP);
 };
 
 
